@@ -24,16 +24,6 @@
 		  Nine-part image styling retains complex layouts. Two identically marked up and styled lists
 		  are illustrated. The top &lt;ul&gt; has a class of 'border'.
 		</p>
-		<p>Javascript used:</p>
-		<pre class="prettyprint lang-html" style="background: #eef5ff; margin-left: 0.5em; padding:1em; width:40em">
-&lt;script type="text/javascript"&gt;
-  jQuery(function($){
-    // First arg is the image filename template,
-    // the second is the size of the border in pixels.
-    $('ul.border').ninePartImage('border-%.png', 8);
-    $('ul.border li').ninePartImage('border-%.png', 8);
-  });
-&lt;/script&gt;</pre>
 		<ul class="border">
 		  <li>Item One</li>
 		  <li>Item Two</li>
@@ -46,6 +36,33 @@
 		  <li>Item Three</li>
 		  <li>Item Four</li>
 		</ul>
-		<p>Source code at <a href="http://github.com/danielfone/jquery.ninepart.js/tree/master">GitHub</a></p>
+		<p>Source code:</p>
+<pre id="code" class="prettyprint lang-html" style="background: #eef5ff; margin-left: 0.5em; padding:1em; width:50em">
+&lt;script type="text/javascript"&gt;
+  jQuery(function($){
+    // First arg is the image filename template,
+    // the second is the size of the border in pixels.
+    $('ul.border').ninePartImage('border-%.png', 8);
+    $('ul.border li').ninePartImage('border-%.png', 8);
+  });
+&lt;/script&gt;
+&lt;style type=&quot;text/css&quot;&gt;
+  ul { list-style: none; clear: both; border: 8px solid blue; height: 66px}
+  li { float: left; padding: 5px; margin: 10px; border: 8px solid green; }
+&lt;/style&gt;
+&lt;ul class=&quot;border&quot;&gt;
+  &lt;li&gt;Item One&lt;/li&gt;
+  &lt;li&gt;Item Two&lt;/li&gt;
+  &lt;li&gt;Item Three&lt;/li&gt;
+  &lt;li&gt;Item Four&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+  &lt;li&gt;Item One&lt;/li&gt;
+  &lt;li&gt;Item Two&lt;/li&gt;
+  &lt;li&gt;Item Three&lt;/li&gt;
+  &lt;li&gt;Item Four&lt;/li&gt;
+&lt;/ul&gt;</pre>
+
+    <p>Source code at <a href="http://github.com/danielfone/jquery.ninepart.js/tree/master">GitHub</a></p>
   </body>
 </html>
