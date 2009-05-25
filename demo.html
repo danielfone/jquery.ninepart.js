@@ -4,6 +4,7 @@
     <title>Nine-Part Image Plugin Demo</title>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
     <script type="text/javascript" src='http://code.f1techware.co.nz/jquery.ninepart/jquery.ninepart.js'></script>
+    <script type="text/javascript" src="http://google-code-prettify.googlecode.com/svn/trunk/src/prettify.js"></script>
     <script type="text/javascript">
       jQuery(function($){
         $('ul.border').ninePartImage('border-%.png', 8);
@@ -11,13 +12,28 @@
       });
     </script>
     <style type="text/css">
+      body { background: #ddd; width: 60%; margin: auto; font-family: 'Georgia'}
       ul { list-style: none; clear: both; border: 8px solid blue; height: 66px}
       li { float: left; padding: 5px; margin: 10px; border: 8px solid green; }
     </style>
+    <link rel="stylesheet" href="http://google-code-prettify.googlecode.com/svn/trunk/src/prettify.css" type="text/css" media="screen" charset="utf-8">
   </head>
-  <body style="background: #ccc; font-family: 'Georgia'">
+  <body onload="prettyPrint()">
 		<h2>Dynamic Nine-Part Images</h2>
-		<p>Nine-part image styling retains complex layouts. Two identically marked up and styled lists are illustrated.</p>
+		<p>
+		  Nine-part image styling retains complex layouts. Two identically marked up and styled lists
+		  are illustrated. The top &lt;ul&gt; has a class of 'border'.
+		</p>
+		<p>Javascript used:</p>
+		<pre class="prettyprint lang-html" style="background: #eef5ff; margin-left: 0.5em; padding:1em; width:40em">
+&lt;script type="text/javascript"&gt;
+  jQuery(function($){
+    // First arg is the image filename template,
+    // the second is the size of the border in pixels.
+    $('ul.border').ninePartImage('border-%.png', 8);
+    $('ul.border li').ninePartImage('border-%.png', 8);
+  });
+&lt;/script&gt;</pre>
 		<ul class="border">
 		  <li>Item One</li>
 		  <li>Item Two</li>
