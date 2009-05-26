@@ -3,27 +3,31 @@
   <head>
     <title>Nine-Part Image Plugin Demo</title>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
-    <script type="text/javascript" src='http://code.f1techware.co.nz/jquery.ninepart/jquery.ninepart.js'></script>
+    <script type="text/javascript" src='jquery.ninepart.js'></script>
     <script type="text/javascript" src="http://google-code-prettify.googlecode.com/svn/trunk/src/prettify.js"></script>
     <script type="text/javascript">
       jQuery(function($){
-        $('ul.border').ninePartImage('border-%.png', 8);
-        $('ul.border li').ninePartImage('border-%.png', 8);
+        $('ul.border').ninePartImage('bg-%.png', 8);
+        $('ul.border li').ninePartImage('bg-%.png', 8);
       });
     </script>
     <style type="text/css">
       body { background: #ddd; width: 60%; margin: auto; font-family: 'Georgia'}
       ul { list-style: none; clear: both; border: 8px solid blue; height: 66px}
       li { float: left; padding: 5px; margin: 10px; border: 8px solid green; }
+      .img { font-size: x-small; float: left; text-align: center; width: 100px; height: 60px }
+      .img img { vertical-align: bottom;  }
     </style>
     <link rel="stylesheet" href="http://google-code-prettify.googlecode.com/svn/trunk/src/prettify.css" type="text/css" media="screen" charset="utf-8">
   </head>
   <body onload="prettyPrint()">
 		<h2>Dynamic Nine-Part Images</h2>
 		<p>
-		  Nine-part image styling retains complex layouts. Two identically marked up and styled lists
-		  are illustrated. The top &lt;ul&gt; has a class of 'border'.
+		  Using a jQuery function, we can achieve complex borders on elements that maintains semantic
+		  markup and clean css. Concept is based on Cocoa's <a href="http://developer.apple.com/documentation/Cocoa/Reference/ApplicationKit/Miscellaneous/AppKit_Functions/Reference/reference.html#//apple_ref/c/func/NSDrawNinePartImage">NSDrawNinePartImage</a>.
+		  In this implementation however, we only use four images to save on page loading time. Styling should retain complex layouts.
 		</p>
+		<p>Two identically marked up and styled lists are illustrated. The top &lt;ul&gt; has a class of 'border'.</p>
 		<ul class="border">
 		  <li>Item One</li>
 		  <li>Item Two</li>
@@ -36,14 +40,21 @@
 		  <li>Item Three</li>
 		  <li>Item Four</li>
 		</ul>
-		<p>Source code:</p>
-<pre id="code" class="prettyprint lang-html" style="background: #eef5ff; margin-left: 0.5em; padding:1em; width:50em">
+		<div>
+		  <p>Uses the following source images:</p>
+		  <div class="img"><div>bg-all.png</div><img src="bg-all.png"></div>
+		  <div class="img"><div>bg-sides.png</div><img src="bg-sides.png"></div>
+		  <div class="img"><div>bg-ends.png</div><img src="bg-ends.png"></div>
+		  <div class="img"><div>bg-mid.png</div><img src="bg-mid.png"></div>
+		</div>
+		<p style="clear: both">Source code:</p>
+<pre id="code" class="prettyprint lang-html" style="background: #eef5ff; margin-left: 0.5em; padding:1em; width:50em;">
 &lt;script type="text/javascript"&gt;
   jQuery(function($){
     // First arg is the image filename template,
     // the second is the size of the border in pixels.
-    $('ul.border').ninePartImage('border-%.png', 8);
-    $('ul.border li').ninePartImage('border-%.png', 8);
+    $('ul.border').ninePartImage('bg-%.png', 8);
+    $('ul.border li').ninePartImage('bg-%.png', 8);
   });
 &lt;/script&gt;
 &lt;style type=&quot;text/css&quot;&gt;

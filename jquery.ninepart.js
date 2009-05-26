@@ -26,32 +26,36 @@
         jSliced.append(jRow);
       }
       // Make sure our table is styled like the element it's mimicking
+      var sizePx = borderSize+'px';
+      var widthPx  = ( $(this).innerWidth() + borderSize*2 )+'px';
+      var heightPx = ( $(this).innerHeight() + borderSize*2 )+'px';
       jSliced.css({
         display:      $(this).css('display'),
         cssFloat:     $(this).css('float'),
+        clear:        $(this).css('clear'),
         marginTop:    $(this).css('marginTop'),
         marginRight:  $(this).css('marginRight'),
         marginBottom: $(this).css('marginBottom'),
-        marginLeft:   $(this).css('marginLeft')
+        marginLeft:   $(this).css('marginLeft'),
+        //width:        widthPx,
+        //height:       heightPx,
       });
       $(this).css({
         border: 'none',
         margin: '0'
       });
       // Style our table to be a border
-      var sizePx = borderSize+'px';
-      var widthPx  = $(this).innerWidth()+'px';
-      var heightPx = $(this).innerHeight()+'px';
-      jSliced.find('.slice_cell').css({height: sizePx, width: sizePx});
-      jSliced.find('.slice_top.slice_left'     ).css({background: 'url('+imgPath.replace('%', 'tl')+') no-repeat'});
-      jSliced.find('.slice_top.slice_center'   ).css({background: 'url('+imgPath.replace('%', 'tc')+') repeat-x' });
-      jSliced.find('.slice_top.slice_right'    ).css({background: 'url('+imgPath.replace('%', 'tr')+') no-repeat'});
-      jSliced.find('.slice_middle.slice_left'  ).css({background: 'url('+imgPath.replace('%', 'ml')+') repeat-y' });
-      jSliced.find('.slice_middle.slice_center').css({background: 'url('+imgPath.replace('%', 'mc')+') repeat', height: heightPx, width: widthPx});
-      jSliced.find('.slice_middle.slice_right' ).css({background: 'url('+imgPath.replace('%', 'mr')+') repeat-y' });
-      jSliced.find('.slice_bottom.slice_left'  ).css({background: 'url('+imgPath.replace('%', 'bl')+') no-repeat'});
-      jSliced.find('.slice_bottom.slice_center').css({background: 'url('+imgPath.replace('%', 'bc')+') repeat-x' });
-      jSliced.find('.slice_bottom.slice_right' ).css({background: 'url('+imgPath.replace('%', 'br')+') no-repeat'});
+      jSliced.find('.slice_left, .slice_right' ).css({width: sizePx});
+      jSliced.find('.slice_top, .slice_bottom' ).css({height: sizePx});
+      jSliced.find('.slice_top.slice_left'     ).css({background: 'url('+imgPath.replace('%', 'all')+') no-repeat 0 0'});
+      jSliced.find('.slice_top.slice_center'   ).css({background: 'url('+imgPath.replace('%', 'ends')+') repeat-x' });
+      jSliced.find('.slice_top.slice_right'    ).css({background: 'url('+imgPath.replace('%', 'all')+') no-repeat 100% 0'});
+      jSliced.find('.slice_middle.slice_left'  ).css({background: 'url('+imgPath.replace('%', 'sides')+') repeat-y' });
+      jSliced.find('.slice_middle.slice_center').css({background: 'url('+imgPath.replace('%', 'mid')+') repeat'});
+      jSliced.find('.slice_middle.slice_right' ).css({background: 'url('+imgPath.replace('%', 'sides')+') repeat-y 100%' });
+      jSliced.find('.slice_bottom.slice_left'  ).css({background: 'url('+imgPath.replace('%', 'all')+') no-repeat 0 100%'});
+      jSliced.find('.slice_bottom.slice_center').css({background: 'url('+imgPath.replace('%', 'ends')+') repeat-x 0 100%' });
+      jSliced.find('.slice_bottom.slice_right' ).css({background: 'url('+imgPath.replace('%', 'all')+') no-repeat 100% 100%'});
       jSliced.find('.slice_center.slice_middle').append($(this).clone(true));
       $(this).replaceWith(jSliced);
     });
