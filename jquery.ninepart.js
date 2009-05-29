@@ -3,10 +3,11 @@
  * @author: Daniel Fone
  * @copyright: F1 Techware Ltd, 2009
  *
- * Example:
- *   $('li').ninePartImage('border-%.png', 8);
- *       - The '%' in the image path will be replaced with 'all', 'mid', 'sides' and 'ends'
- *       - The 8 stipluates the border is 8px wide
+ * Load a nine part image. Images loaded will
+ * be 'bg-all.png', 'bg-mid.png', 'bg-sides.png'
+ * and 'bg-ends.png'.
+ * Border and margin sizes are derived from the
+ * child element's CSS.
  */
 (function($){
   jQuery.fn.ninePartImage = function(imgPath){
@@ -65,6 +66,9 @@
     });
   };
   
+  /**
+   * A convenient way to style our resulting grid
+   */
   jQuery.fn.ninePartCSS = function(css){
     $(this).parents('table.slice_container').css(css);
   }
