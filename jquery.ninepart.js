@@ -5,12 +5,11 @@
  *
  * Example:
  *   $('li').ninePartImage('border-%.png', 8);
- *       - The '%' in the image path will be replaced with tl, tc, tr, ml, mc, mr, bl, bc and br,
- *         representing combinations of top, middle, bottom, left, center and right
+ *       - The '%' in the image path will be replaced with 'all', 'mid', 'sides' and 'ends'
  *       - The 8 stipluates the border is 8px wide
  */
 (function($){
-  jQuery.fn.ninePartImage = function(imgPath, borderSize){
+  jQuery.fn.ninePartImage = function(imgPath){
     var grid_x = ['slice_left', 'slice_center', 'slice_right'];
     var grid_y = ['slice_top', 'slice_middle', 'slice_bottom'];
     
@@ -26,37 +25,47 @@
         jSliced.append(jRow);
       }
       // Make sure our table is styled like the element it's mimicking
+      var tableWidth = (
+        $(this).innerWidth() +
+        parseInt($(this).css('border-right-width')) +
+        parseInt($(this).css('border-left-width'))
+      ) + 'px';
       jSliced.css({
         display:      $(this).css('display'),
-        cssFloat:     $(this).css('float'),
-        clear:        $(this).css('clear'),
         marginTop:    $(this).css('marginTop'),
         marginRight:  $(this).css('marginRight'),
         marginBottom: $(this).css('marginBottom'),
-        marginLeft:   $(this).css('marginLeft')
+        marginLeft:   $(this).css('marginLeft'),
+        width:        tableWidth
       });
-      $(this).css({
-        border: 'none',
-        margin: '0'
-      });
-      // Style our table to be a border
-      var sizePx = borderSize+'px';
-      var widthPx  = $(this).innerWidth()+'px';
-      var heightPx = $(this).innerHeight()+'px';
-      jSliced.find('.slice_left, .slice_right' ).css({width: sizePx});
-      jSliced.find('.slice_top, .slice_bottom' ).css({height: sizePx});
+      // Style our table to be border-like
+      jSliced.find('.slice_left'  ).css({width:  $(this).css('border-left-width')});
+      jSliced.find('.slice_right' ).css({width:  $(this).css('border-right-width')});
+      jSliced.find('.slice_top'   ).css({height: $(this).css('border-top-width')});
+      jSliced.find('.slice_bottom').css({height: $(this).css('border-bottom-width')});
       jSliced.find('.slice_top.slice_left'     ).css({background: 'url('+imgPath.replace('%', 'all')+') no-repeat 0 0'});
       jSliced.find('.slice_top.slice_center'   ).css({background: 'url('+imgPath.replace('%', 'ends')+') repeat-x' });
       jSliced.find('.slice_top.slice_right'    ).css({background: 'url('+imgPath.replace('%', 'all')+') no-repeat 100% 0'});
       jSliced.find('.slice_middle.slice_left'  ).css({background: 'url('+imgPath.replace('%', 'sides')+') repeat-y' });
-      jSliced.find('.slice_middle.slice_center').css({background: 'url('+imgPath.replace('%', 'mid')+') repeat', width: widthPx, height: heightPx});
+      jSliced.find('.slice_middle.slice_center').css({background: 'url('+imgPath.replace('%', 'mid')+') repeat'});
       jSliced.find('.slice_middle.slice_right' ).css({background: 'url('+imgPath.replace('%', 'sides')+') repeat-y 100%' });
       jSliced.find('.slice_bottom.slice_left'  ).css({background: 'url('+imgPath.replace('%', 'all')+') no-repeat 0 100%'});
       jSliced.find('.slice_bottom.slice_center').css({background: 'url('+imgPath.replace('%', 'ends')+') repeat-x 0 100%' });
       jSliced.find('.slice_bottom.slice_right' ).css({background: 'url('+imgPath.replace('%', 'all')+') no-repeat 100% 100%'});
+      // Remove unwanted styles from our target element
+      $(this).css({
+        border: 'none',
+        margin: '0',
+        position: 'static',
+        background: 'transparent'
+      });
+      // Apply table
       jSliced.find('.slice_center.slice_middle').append($(this).clone(true));
       $(this).replaceWith(jSliced);
     });
-    
   };
+  
+  jQuery.fn.ninePartCSS = function(css){
+    $(this).parents('table.slice_container').css(css);
+  }
 })(jQuery);

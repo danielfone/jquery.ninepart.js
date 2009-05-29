@@ -2,78 +2,80 @@
 <html>
   <head>
     <title>Nine-Part Image Plugin Demo</title>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.1/jquery.min.js"></script>
     <script type="text/javascript" src='jquery.ninepart.js'></script>
-    <script type="text/javascript" src="http://google-code-prettify.googlecode.com/svn/trunk/src/prettify.js"></script>
+    <script type="text/javascript" src="prettify.js"></script>
     <script type="text/javascript">
       jQuery(function($){
-        $('ul.border').ninePartImage('bg-%.png', 8);
-        $('ul.border li').ninePartImage('bg-%.png', 8);
+        if ( window.location.search != '?plain' ){
+          $('.box').ninePartImage('bg-%.png');
+          $('h2.box').ninePartCSS({margin: '0 auto'})
+          $('.view').ninePartCSS({position: 'fixed', top: 0, right: 0});
+        }
+        $('a.more').click(function(){
+          var $code = $('#code');
+          if ( $code.is(':not(:visible)') ){
+            $code.slideDown();
+            $(this).text('hide...');
+          } else {
+            $code.slideUp();
+            $(this).text('show...');
+          }
+          $(this).blur();
+          return false;
+        });
       });
     </script>
     <style type="text/css">
-      body { background: #ddd; width: 60%; margin: auto; font-family: 'Georgia'}
-      ul { list-style: none; clear: both; border: 8px solid blue; height: 66px}
-      li { float: left; padding: 5px; margin: 10px; border: 8px solid green; }
-      .img { font-size: x-small; float: left; text-align: center; width: 100px; height: 60px }
-      .img img { vertical-align: bottom;  }
+      body { font-family: 'Georgia'; overflow: -moz-scrollbars-vertical; margin: 0; padding: 0; }
+      a, a:visited, a:active { color: #acf; }
+      .content { width: 60%; margin: auto; }
+      .box { color: #eee; background: #262626; border: 20px solid #444; }
+      h2.box { margin: 0 auto; text-align: center; border-top: 0; padding: 0.5em; width: 14em; }
+      p.box { padding: 1em; margin: 0.5em 0; width: 25em; line-height: 1.5em }
+      div.box { padding: 1em; margin: 1em 0; width: 25em; line-height: 1.5em }
+      p.view { width: auto; position: fixed; top: 0; right: 0; border-top: 0; border-right: 0; margin: 0; font-size: x-small }
+      #code { margin-top: 1em; border:none }
     </style>
-    <link rel="stylesheet" href="http://google-code-prettify.googlecode.com/svn/trunk/src/prettify.css" type="text/css" media="screen" charset="utf-8">
+    <link rel="stylesheet" href="prettify.css" type="text/css" media="screen" charset="utf-8">
   </head>
   <body onload="prettyPrint()">
-		<h2>Dynamic Nine-Part Images</h2>
-		<p>
-		  Using a jQuery function, we can achieve complex borders on elements that maintains semantic
-		  markup and clean css. Concept is based on Cocoa's <a href="http://developer.apple.com/documentation/Cocoa/Reference/ApplicationKit/Miscellaneous/AppKit_Functions/Reference/reference.html#//apple_ref/c/func/NSDrawNinePartImage">NSDrawNinePartImage</a>.
-		  In this implementation however, we only use four images to save on page loading time. Styling should retain complex layouts.
-		</p>
-		<p>Two identically marked up and styled lists are illustrated. The top &lt;ul&gt; has a class of 'border'.</p>
-		<ul class="border">
-		  <li>Item One</li>
-		  <li>Item Two</li>
-		  <li>Item Three</li>
-		  <li>Item Four</li>
-		</ul>
-		<ul>
-		  <li>Item One</li>
-		  <li>Item Two</li>
-		  <li>Item Three</li>
-		  <li>Item Four</li>
-		</ul>
-		<div>
-		  <p>Uses the following source images:</p>
-		  <div class="img"><div>bg-all.png</div><img src="bg-all.png"></div>
-		  <div class="img"><div>bg-sides.png</div><img src="bg-sides.png"></div>
-		  <div class="img"><div>bg-ends.png</div><img src="bg-ends.png"></div>
-		  <div class="img"><div>bg-mid.png</div><img src="bg-mid.png"></div>
-		</div>
-		<p style="clear: both">Source code:</p>
-<pre id="code" class="prettyprint lang-html" style="background: #eef5ff; margin-left: 0.5em; padding:1em; width:50em;">
+    <div class="content">
+  		<h2 class="box">Dynamic Nine-Part Images</h2>
+  		<p class="view box">View <a href="?plain">plain</a> | View <a href='?'>dynamic</a></p>
+  		<p class="box">
+  		  Using a jQuery function, we can achieve complex borders on elements that maintains semantic
+  		  markup and clean css. Concept is based on Cocoa's <a href="http://developer.apple.com/documentation/Cocoa/Reference/ApplicationKit/Miscellaneous/AppKit_Functions/Reference/reference.html#//apple_ref/c/func/NSDrawNinePartImage">NSDrawNinePartImage</a>.
+  		  In this implementation however, we only use four images to save on page loading time. Styling should retain complex layouts.
+  		</p>
+  		<div style="margin-right: auto; margin-left: auto;" class="box">
+  		  Example code: <a href="#" class="more">show...</a>
+  		  <pre id="code" class="prettyprint lang-html" style="display: none;">
 &lt;script type="text/javascript"&gt;
   jQuery(function($){
-    // First arg is the image filename template,
-    // the second is the size of the border in pixels.
-    $('ul.border').ninePartImage('bg-%.png', 8);
-    $('ul.border li').ninePartImage('bg-%.png', 8);
+    // Load a nine part image around the p
+    // tag with class box. Images loaded will
+    // be 'bg-all.png', 'bg-mid.png', 'bg-sides.png'
+    // and 'bg-ends.png'.
+    // Border and margin sizes are derived from the
+    // child element's CSS.
+    $('p.box').ninePartImage('bg-%.png');
+    // Any additional CSS can be specified like so.
+    $('p.box').ninePartCSS({position: 'absolute'});
   });
 &lt;/script&gt;
-&lt;style type=&quot;text/css&quot;&gt;
-  ul { list-style: none; clear: both; border: 8px solid blue; height: 66px}
-  li { float: left; padding: 5px; margin: 10px; border: 8px solid green; }
-&lt;/style&gt;
-&lt;ul class=&quot;border&quot;&gt;
-  &lt;li&gt;Item One&lt;/li&gt;
-  &lt;li&gt;Item Two&lt;/li&gt;
-  &lt;li&gt;Item Three&lt;/li&gt;
-  &lt;li&gt;Item Four&lt;/li&gt;
-&lt;/ul&gt;
-&lt;ul&gt;
-  &lt;li&gt;Item One&lt;/li&gt;
-  &lt;li&gt;Item Two&lt;/li&gt;
-  &lt;li&gt;Item Three&lt;/li&gt;
-  &lt;li&gt;Item Four&lt;/li&gt;
-&lt;/ul&gt;</pre>
-
-    <p>Source code at <a href="http://github.com/danielfone/jquery.ninepart.js/tree/master">GitHub</a></p>
+&lt;p class=&quot;box&quot;&gt;
+  Lorem ipsum dolor sit amet, consectetur adipisicing
+  elit, sed do magna aliqua. Ut enim ad minim veniam,
+  quis nostrud exercitation consequat. Duis aute irure
+  dolor in reprehenderit in voluptate. Excepteur sint
+  occaecat cupidatat non proident, sunt in culpa.
+&lt;/p&gt;</pre>
+  	  </div>
+  	  <p style="margin-right: 0; margin-left: auto;" class="box">
+  		  Source code at <a href="http://github.com/danielfone/jquery.ninepart.js/tree/master">GitHub</a>.<br>
+  		  Sugar-free eye candy brought to you by <a href="http://www.f1techware.co.nz">F1 Techware</a>.
+  		</p>
+    </div>    
   </body>
 </html>
