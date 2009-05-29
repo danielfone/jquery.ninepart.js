@@ -1,17 +1,18 @@
 /* Pretty printing styles. Used with prettify.js. */
 
-.str { color: #080; }
-.kwd { color: #008; }
-.com { color: #800; }
-.typ { color: #606; }
-.lit { color: #066; }
-.pun { color: #660; }
-.pln { color: #000; }
-.tag { color: #008; }
-.atn { color: #606; }
-.atv { color: #080; }
-.dec { color: #606; }
-pre.prettyprint { padding: 2px; border: 1px solid #888; }
+.str { color: #4C4; }
+.kwd { color: #44C; }
+.com { color: #C44; }
+.typ { color: #C6C; }
+.lit { color: #6CC; }
+.pun { color: #CC6; }
+.pln { color: #CCC; }
+.tag { color: #66C; }
+.atn { color: #C6C; }
+.atv { color: #4C4; }
+.dec { color: #C6C; }
+
+pre.prettyprint { font: 10pt "Consolas", "Monaco", "Lucida Console", monospace; padding: 2px; border: 1px solid #888; }
 
 @media print {
   .str { color: #060; }
