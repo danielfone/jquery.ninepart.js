@@ -10,12 +10,24 @@
  * child element's CSS.
  */
 (function($){
+  jQuery.ninePartPreload = function(imgPath){
+    var parts, img, imgSrc;
+    parts = ['all', 'ends', 'mid', 'sides'];
+    document.write('<div class="slice preload" style="display:none">');
+    for ( var i in parts ){
+      imgSrc = imgPath.replace('%', parts[i]);
+      img = '<img style="display:none" src="'+imgSrc+'">';
+      document.write(img);
+    }
+    document.write('</div>');
+  };
+  
   jQuery.fn.ninePartImage = function(imgPath){
     var grid_x = ['slice_left', 'slice_center', 'slice_right'];
     var grid_y = ['slice_top', 'slice_middle', 'slice_bottom'];
     
     $(this).each(function(){
-      // Create our slice_-part table
+      // Create our nine-part table
       var jSliced = $('<table class="slice_container" cellspacing="0" cellpadding="0"></table>');
       for ( var y in grid_y ){
         var jRow = $('<tr class="slice_row"></tr>');
@@ -28,8 +40,8 @@
       // Make sure our table is styled like the element it's mimicking
       var tableWidth = (
         $(this).innerWidth() +
-        parseInt($(this).css('border-right-width')) +
-        parseInt($(this).css('border-left-width'))
+        parseInt($(this).css('border-right-width'), 10) +
+        parseInt($(this).css('border-left-width'), 10)
       ) + 'px';
       jSliced.css({
         display:      $(this).css('display'),
@@ -71,5 +83,5 @@
    */
   jQuery.fn.ninePartCSS = function(css){
     $(this).parents('table.slice_container').css(css);
-  }
+  };
 })(jQuery);
