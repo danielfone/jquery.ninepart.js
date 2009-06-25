@@ -27,15 +27,26 @@
     var grid_y = ['slice_top', 'slice_middle', 'slice_bottom'];
     
     $(this).each(function(){
-      // Create our nine-part table
-      var jSliced = $('<table class="slice_container" cellspacing="0" cellpadding="0"></table>');
+      var $this = $(this);
+      
+      // Wrap our target in a skeletal table
+      var skel = '<table class="slice_container" cellspacing="0" cellpadding="0"><tr class="slice_row"><td class="slice_cell"></td></tr></table>';
+      $this.wrap(skel);
+      var jSliced = $this.parents('.slice_container');
+      
+      // Flesh out our nine-part table
+      var hRow = '<tr class="slice_row"></tr>';
+      var hCell = '<td class="slice_cell"></td>';
+      jSliced.find('.slice_cell').before(hCell).after(hCell);
+      jSliced.append($(hRow).append(hCell).append(hCell).append(hCell));
+      jSliced.prepend($(hRow).append(hCell).append(hCell).append(hCell));
+      
+      // Classify our cells
       for ( var y in grid_y ){
-        var jRow = $('<tr class="slice_row"></tr>');
+        var $row = jSliced.find('.slice_row:eq('+y+')');
         for ( var x in grid_x){
-          var jCell = $('<td class="slice_cell '+grid_y[y]+' '+grid_x[x]+'"></td>');
-          jRow.append(jCell);
+          $row.find('.slice_cell:eq('+x+')').addClass(grid_y[y]+' '+grid_x[x]);
         }
-        jSliced.append(jRow);
       }
       // Make sure our table is styled like the element it's mimicking
       var tableWidth = (
@@ -72,9 +83,6 @@
         position: 'static',
         background: 'transparent'
       });
-      // Apply table
-      jSliced.find('.slice_center.slice_middle').append($(this).clone(true));
-      $(this).replaceWith(jSliced);
     });
   };
   
